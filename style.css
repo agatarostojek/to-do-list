@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url(./layered-waves-haikei.svg);
+  background-size: cover;
+  color: #34495e;
+  font-family: "Open Sans Condensed", sans-serif;
+  min-height: 100vh;
+  padding-top: 3rem;
+}
+
+h1 {
+  font-size: 4rem;
+  font-family: "Titan One", sans-serif;
+}
+
+header,
+form {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form input,
+form button {
+  padding: 0.5rem;
+  font-size: 2rem;
+  border: none;
+  background: #f4f7f7;
+}
+
+form input {
+  border-radius: 8px;
+}
+
+form button {
+  color: #34495e;
+  background: #f4f7f7;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0 8px 8px 0;
+  margin-left: -2.75rem;
+}
+
+form button:hover {
+  background: #34495eab;
+  color: #f4f7f7;
+}
+
+form input:focus {
+  outline: #34495e9f solid 3px;
+}
