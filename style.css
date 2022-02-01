@@ -55,3 +55,15 @@ form button:hover {
 form input:focus {
   outline: #34495e9f solid 3px;
 }
+
+.todo__div {
+}
+
+.div__element {
+}
+
+.element__button--completed {
+}
+
+.element__button--delete {
+}
