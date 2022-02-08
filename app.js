@@ -2,10 +2,13 @@
 const todoInput = document.querySelector(".todo__input");
 const todoButton = document.querySelector(".todo__button");
 const todoList = document.querySelector(".todo__list");
+const selectButton = document.querySelector(".select__button");
+const select = document.querySelector(".select__filter");
 
 //Event Listeners
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteComplete);
+select.addEventListener("change", filtersDisplay);
 
 //Functions
 function addTodo(event) {
@@ -37,12 +40,14 @@ function addTodo(event) {
   deleteButton.classList.add("element__button--delete");
   todoDiv.appendChild(deleteButton);
 
-  //Adding th background list
+  //Adding a background to the list
   if (todoDiv !== null) {
     todoList.classList.add("todo__list--js");
-  } else if () {
-    todoList.classList.remove("todo_list--js");
   }
+
+  //Filter creation
+  selectButton.innerHTML = '<i class="fas fa-filter"></i>';
+  select.classList.add("select__filter--display");
 
   //Clear the input
   todoInput.value = "";
@@ -50,10 +55,49 @@ function addTodo(event) {
 
 function deleteComplete(e) {
   const clickItem = e.target;
-  console.log(clickItem);
-
   if (clickItem.classList[0] === "element__button--delete") {
     const clickItemParent = clickItem.parentElement;
-    clickItemParent.remove();
+    //Animation await, remove item
+    clickItemParent.classList.add("button__delete--animation");
+    clickItemParent.addEventListener("transitionend", function () {
+      clickItemParent.remove();
+      if (todoList.children.length === 0) {
+        todoList.classList.remove("todo__list--js");
+      }
+    });
+  }
+
+  if (clickItem.classList[0] === "element__button--completed") {
+    clickItem.parentElement.classList.toggle("button__completed--modifier");
+  }
+}
+
+//Filtering functionality
+function filtersDisplay() {
+  const todoTasks = todoList.children;
+  switch (select.value) {
+    case "all":
+      for (i = 0; i < todoTasks.length; i++) {
+        todoTasks[i].classList.remove("hide");
+      }
+      break;
+    case "completed":
+      for (i = 0; i < todoTasks.length; i++) {
+        if (!todoTasks[i].classList.contains("button__completed--modifier")) {
+          todoTasks[i].classList.add("hide");
+        } else {
+          todoTasks[i].classList.remove("hide");
+        }
+      }
+      break;
+    case "uncompleted":
+      for (i = 0; i < todoTasks.length; i++) {
+        if (todoTasks[i].classList.contains("button__completed--modifier")) {
+          todoTasks[i].classList.add("hide");
+        } else {
+          todoTasks[i].classList.remove("hide");
+        }
+      }
+      break;
   }
 }

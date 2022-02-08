@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="./style.css" />
     <title>To Do List</title>
   </head>
+
   <body>
     <header>
       <h1>TO DO LIST</h1>
@@ -39,8 +40,18 @@
         <i class="fas fa-plus-square"></i>
       </button>
     </form>
+
     <div class="todo__container">
-      <ul class="todo__list"></ul>
+      <ul class="todo__list">
+        <li class="select__container">
+          <div class="select__button"></div>
+          <select name="todo" class="select__filter">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="uncompleted">Uncompleted</option>
+          </select>
+        </li>
+      </ul>
     </div>
 
     <script src="./app.js"></script>
