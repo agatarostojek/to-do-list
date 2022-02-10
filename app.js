@@ -77,6 +77,7 @@ function deleteComplete(e) {
 
   if (clickItem.classList[0] === "element__button--completed") {
     clickItem.parentElement.classList.toggle("button__completed--modifier");
+    selectButton.parentElement.classList.add("hide");
   }
 }
 
