@@ -155,10 +155,6 @@ select {
   font-size: 1.2rem;
 }
 
-.hide {
-  display: none;
-}
-
 .select__container {
   display: flex;
   grid-gap: 0.7rem;
@@ -175,4 +171,8 @@ select {
   display: block;
   font-size: 0.8rem;
   color: #34495ee5;
+}
+
+.hide {
+  display: none;
 }
