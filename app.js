@@ -1,51 +1,55 @@
-//Selectors
+//SELECTORS
+const todoContainer = document.querySelector(".todo__container");
 const todoInput = document.querySelector(".todo__input");
 const todoButton = document.querySelector(".todo__button");
 const todoList = document.querySelector(".todo__list");
 const selectButton = document.querySelector(".select__button");
 const select = document.querySelector(".select__filter");
 
-//Event Listeners
+//EVENT LISTENERS
 document.addEventListener("DOMContentLoaded", getLocalStorage);
-todoButton.addEventListener("click", addTodo);
+todoButton.addEventListener("click", addTodoTask);
 todoList.addEventListener("click", deleteComplete);
 select.addEventListener("change", filtersDisplay);
 
-//Functions
-function addTodo(event) {
-  event.preventDefault();
-
-  //Check input value
-  if (todoInput.value.length === 0) return;
-
-  //Create Div
+//FUNCTIONS
+function createTodoElement() {
   const todoDiv = document.createElement("div");
   todoDiv.classList.add("todo__div");
   todoList.appendChild(todoDiv);
 
-  //Create element
+  //create todo li
   const todoElement = document.createElement("li");
+  todoElement.classList.add("todo__element");
   todoElement.innerHTML = todoInput.value;
-  todoElement.classList.add("div__element");
   todoDiv.appendChild(todoElement);
 
-  //Create completed button
+  //create completed button
   const completedButton = document.createElement("button");
   completedButton.innerHTML = '<i class="fas fa-check"></i>';
   completedButton.classList.add("element__button--completed");
   todoDiv.appendChild(completedButton);
 
-  //Create delete button
+  //create delete button
   const deleteButton = document.createElement("button");
   deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
   deleteButton.classList.add("element__button--delete");
   todoDiv.appendChild(deleteButton);
 
-  //Adding a background to the list
-  if (todoDiv !== null) {
-    todoList.classList.add("todo__list--js");
-    selectButton.parentElement.classList.remove("hide");
+  if (todoList.children !== 0) {
+    todoContainer.classList.remove("hide");
   }
+}
+
+function addTodoTask(event) {
+  event.preventDefault();
+
+  //Check the input value
+  if (todoInput.value === "") {
+    return;
+  }
+
+  createTodoElement();
 
   //Filter creation
   selectButton.innerHTML = '<i class="fas fa-filter"></i>';
@@ -63,21 +67,21 @@ function deleteComplete(e) {
   const clickItem = e.target;
   if (clickItem.classList[0] === "element__button--delete") {
     const clickItemParent = clickItem.parentElement;
+    console.log(clickItemParent);
     //Animation await, remove item
     clickItemParent.classList.add("button__delete--animation");
     removeLocalStorage(clickItemParent);
     clickItemParent.addEventListener("transitionend", function () {
-      if (todoList.lastElementChild.className === "select__container") {
-        todoList.classList.remove("todo__list--js");
-        selectButton.parentElement.classList.add("hide");
-      }
       clickItemParent.remove();
+
+      if (todoList.childNodes.length === 0) {
+        todoContainer.classList.add("hide");
+      }
     });
   }
 
   if (clickItem.classList[0] === "element__button--completed") {
     clickItem.parentElement.classList.toggle("button__completed--modifier");
-    selectButton.parentElement.classList.add("hide");
   }
 }
 
@@ -112,10 +116,14 @@ function filtersDisplay() {
   }
 }
 
-//Local storage
 function saveLocally(task) {
-  //Checking storage
   let tasks;
+  if (localStorage.getItem("tasks") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+  }
+
   if (localStorage.getItem("tasks") === null) {
     tasks = [];
   } else {
@@ -126,7 +134,6 @@ function saveLocally(task) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-//Get from local storage
 function getLocalStorage() {
   let tasks;
   if (localStorage.getItem("tasks") === null) {
@@ -136,34 +143,32 @@ function getLocalStorage() {
   }
 
   tasks.forEach(function (task) {
-    //Create Div
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo__div");
     todoList.appendChild(todoDiv);
 
-    //Create element
+    //create todo li
     const todoElement = document.createElement("li");
+    todoElement.classList.add("todo__element");
     todoElement.innerHTML = task;
-    todoElement.classList.add("div__element");
+    console.log(task);
     todoDiv.appendChild(todoElement);
 
-    //Create completed button
+    //create completed button
     const completedButton = document.createElement("button");
     completedButton.innerHTML = '<i class="fas fa-check"></i>';
     completedButton.classList.add("element__button--completed");
     todoDiv.appendChild(completedButton);
 
-    //Create delete button
+    //create delete button
     const deleteButton = document.createElement("button");
     deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
     deleteButton.classList.add("element__button--delete");
     todoDiv.appendChild(deleteButton);
 
-    //Adding a background to the list
-    if (todoDiv !== null) {
-      todoList.classList.add("todo__list--js");
+    if (todoList.children !== 0) {
+      todoContainer.classList.remove("hide");
     }
-
     //Filter creation
     selectButton.innerHTML = '<i class="fas fa-filter"></i>';
     select.classList.add("select__filter--display");

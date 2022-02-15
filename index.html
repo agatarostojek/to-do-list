@@ -41,17 +41,16 @@
       </button>
     </form>
 
-    <div class="todo__container">
-      <ul class="todo__list">
-        <li class="select__container">
-          <div class="select__button"></div>
-          <select name="todo" class="select__filter">
-            <option value="all">All</option>
-            <option value="completed">Completed</option>
-            <option value="uncompleted">Uncompleted</option>
-          </select>
-        </li>
-      </ul>
+    <div class="todo__container hide">
+      <div class="select__container">
+        <div class="select__button"></div>
+        <select name="todo" class="select__filter">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="uncompleted">Uncompleted</option>
+        </select>
+      </div>
+      <ul class="todo__list"></ul>
     </div>
 
     <script src="./app.js"></script>
