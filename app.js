@@ -43,6 +43,7 @@ function createTodoElement() {
 
 function addTodoTask(event) {
   event.preventDefault();
+  select.value = "all";
 
   //Check the input value
   if (todoInput.value === "") {
@@ -57,6 +58,8 @@ function addTodoTask(event) {
 
   //Local Storage call
   saveLocally(todoInput.value);
+
+  filtersDisplay();
 
   //Clear the input
   todoInput.value = "";
@@ -172,6 +175,7 @@ function getLocalStorage() {
     //Filter creation
     selectButton.innerHTML = '<i class="fas fa-filter"></i>';
     select.classList.add("select__filter--display");
+    select.value = "all";
   });
 }
 
